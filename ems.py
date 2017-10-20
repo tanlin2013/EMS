@@ -28,7 +28,7 @@ if __name__=='__main__':
     
     gs = []
     for z in zs:
-        g = EMS.bg.blackening_factor(model.d,z,zh,mu,model.f,model.Ae)
+        g = EMS.bg.blackening_factor(model,z,zh,mu)
         gs.append(g)
         
     plt.figure()
