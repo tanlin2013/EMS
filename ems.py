@@ -2,27 +2,31 @@ import EMS
 import numpy as np
 import matplotlib.pyplot as plt
 
-def Ae(y):
-    Ae = -a*np.log(b*y**2+1)
-    return Ae
-    
-def f(y):
-    f = np.exp(-c*y**2-Ae(y))
-    return f
+class light_quark:
+    def __init__(self):
+        self.a = 4.046
+        self.b = 0.01613
+        self.c = 0.227
+        self.d = 3
 
-if __name__=='__main__':
+    def Ae(self,y):
+        Ae = -self.a*np.log(self.b*y**2+1)
+        return Ae
     
-    a=4.046
-    b=0.01613
-    c=0.227
-    d=3
+    def f(self,y):
+        f = np.exp(-self.c*y**2-self.Ae(y))
+        return f
+    
+if __name__=='__main__':    
+    
+    model = light_quark()
     zs=np.linspace(0.,30.,80)
     zh=10.0
     mu=1.0
     
     gs = []
     for z in zs:
-        g = EMS.bg.blackening_factor(d,z,zh,mu,f,Ae)
+        g = EMS.bg.blackening_factor(d,z,zh,mu,model.f,model.Ae)
         gs.append(g)
         
     plt.figure()
