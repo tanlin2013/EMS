@@ -36,20 +36,20 @@ def blackening_factor(model,z,zh,mu,tol=1e-8):
             Iset.det(z,zh)/(Iset.I2(0,zh) * Iset.I1(0,zh)**2))
     return g
 
-def we(z,Ae): 
+def we(Ae,z): 
     we = np.exp(Ae(z))/z
     return we
 
-def _dAe(z,Ae,dz=1e-8):
+def _dAe(Ae,z,dz=1e-8):
     dAe = derivative(Ae,z,dz)
     return dAe
     
-def _d2Ae(z,Ae,dz=1e-8):
+def _d2Ae(Ae,z,dz=1e-8):
     d2Ae = derivative(Ae,z,dz,n=2)
     return d2Ae
     
 def phi(model,z):
-    func = lambda y: np.sqrt(-2*model.d * (_d2Ae(y,model.Ae) - _dAe(y,model.Ae)**2 + 2*_dAe(y,model.Ae)/y))
+    func = lambda y: np.sqrt(-2*model.d * (_d2Ae(model.Ae,y) - _dAe(model.Ae,y)**2 + 2*_dAe(model.Ae,y)/y))
     phi, err = integrate.quad(func,0,z) 
     return phi
 
