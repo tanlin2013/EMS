@@ -3,10 +3,10 @@ from scipy import integrate
 from scipy.misc import derivative
 
 class _integral_set:
-    def __init__(self,d,f,Ae,tol):
-        self.d = d
-        self.f = f
-        self.Ae = Ae
+    def __init__(self,model,tol):
+        self.d = model.d
+        self.f = model.f
+        self.Ae = model.Ae
         self.tol = tol
 
     def I1(self,yi,yf):
@@ -30,8 +30,8 @@ class _integral_set:
         det = np.linalg.det(mat)
         return det
     
-def blackening_factor(d,z,zh,mu,f,Ae,tol=1e-8):
-    Iset = _integral_set(d,f,Ae,tol)
+def blackening_factor(model,z,zh,mu,tol=1e-8):
+    Iset = _integral_set(model,tol)
     g = 1 - Iset.I2(0,z)/Iset.I2(0,zh) + mu**2 * (
             Iset.det(z,zh)/(Iset.I2(0,zh) * Iset.I1(0,zh)**2))
     return g
