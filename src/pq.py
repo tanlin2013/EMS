@@ -9,8 +9,8 @@ def _partial_derivative(func,axis=0,point=[],n=1,dx=1e-8):
         return func(*args)
     return derivative(func_along,point[axis],dx,n)
 
-def s_BH(d,Ae,zh,dz=1e-8):
-    s_BH = np.exp(3*bg.we(zh,Ae))/zh**3
+def s_BH(d,zh,Ae,dz=1e-8):
+    s_BH = bg.we(zh,Ae)**d/4.
     return s_BH
 
 def T_BH(g,zh,dz=1e-8):
