@@ -25,14 +25,21 @@ def sigma(z,Ae):
     sigma = ws(z)**2*np.sqrt(g(z,Ae,dz))
     return sigma
     
-    
 def Vqq():
-    func = 
+    func = 2/(4*np.pi)*(ws^2*(1-sigma(zt)^2)/sigma(z)^2)^(-1/2))
     Vqq, err = integrate.quad
     return Vqq
 
 def rqq():
-    func =
+    func = 2*(g(z,zh,dz)*(sigma(z,Ae)^2)/sigma(zt)^2-1)^(-1/2)
     rqq,err = integrate.quad
     return rqq
     
+def S_TH():
+    func = 
+    S_TH,err = integrate.quad
+    return S_TH
+
+def F_EF():
+    F_EF = 
+    return F_EF
