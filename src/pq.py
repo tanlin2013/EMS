@@ -9,21 +9,21 @@ def _partial_derivative(func,axis=0,point=[],n=1,dx=1e-8):
         return func(*args)
     return derivative(func_along,point[axis],dx,n)
 
-def s_BH(d,zh,Ae,dz=1e-8):
-    s_BH = bg.we(zh,Ae)**d/4.
+def s_BH(model,zh,dz=1e-8):
+    s_BH = bg.we(model.Ae,zh)**model.d / 4.
     return s_BH
 
-def T_BH(g,zh,dz=1e-8):
-    T_BH = - derivative(g,zh,dz)/(4*np.pi)
+def T_BH(model,zh,mu,dz=1e-8):
+    T_BH = - _partial_derivative(bg.blackening_factor,axis=1,point=[model,zh,zh,mu,dz],dx=dz)/(4*np.pi)
     return T_BH
 
-def F_BH(g,zh,dz=1e-8):
-    func = lambda y: s_BH()*
-    F_BH, err = integrate.quad(func,yi,yf)
+def F_BH(model,zh,mu,dzh=1e-8):
+    func = lambda y: s_BH(model,y)*_partial_derivative(T_BH,axis=1,point=[model,y,mu,dzh],dx=dz)
+    F_BH, err = integrate.quad(func,zh,np.inf)
     return F_BH
 
-def sigma(z,Ae):
-    sigma = ws(z)**2*np.sqrt(g(z,Ae,dz))
+def sigma(model,z,zh,mu,tol=1e-8):
+    sigma = bg.ws(model,z)**2 * np.sqrt(bg.blackening_factor(model,z,zh,mu,tol))
     return sigma
     
 def Vqq():
