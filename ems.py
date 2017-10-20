@@ -1,4 +1,5 @@
 import EMS
+import numpy as np
 import matplotlib.pyplot as plt
 
 def Ae(y):
