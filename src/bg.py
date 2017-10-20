@@ -1,7 +1,8 @@
 import numpy as np
 from scipy import integrate
+from scipy.misc import derivative
 
-class integral_set:
+class _integral_set:
     def __init__(self,d,f,Ae,tol):
         self.d = d
         self.f = f
@@ -30,7 +31,7 @@ class integral_set:
         return det
     
 def blackening_factor(d,z,zh,mu,f,Ae,tol=1e-8):
-    Iset = integral_set(d,f,Ae,tol)
+    Iset = _integral_set(d,f,Ae,tol)
     g = 1 - Iset.I2(0,z)/Iset.I2(0,zh) + mu**2 * (
             Iset.det(z,zh)/(Iset.I2(0,zh) * Iset.I1(0,zh)**2))
     return g
@@ -39,15 +40,23 @@ def we(z,Ae):
     we = np.exp(Ae(z))/z
     return we
 
-def phi(z,Ae):
-    func = lambda y: 
-    phi,err = integrate. 
+def _dAe(z,Ae,dz=1e-8):
+    dAe = derivative(Ae,z,dz)
+    return dAe
+    
+def _d2Ae(z,Ae,dz=1e-8):
+    d2Ae = derivative(Ae,z,dz,n=2)
+    return d2Ae
+    
+def phi(d,z,Ae):
+    func = lambda y: np.sqrt(-2*d * (_d2Ae(y,Ae) - _dAe(y,Ae)**2 + 2*_dAe(y,Ae)/y))
+    phi, err = integrate.quad(func,0,z) 
     return phi
 
-def As(z,Ae):
-    As = Ae(z) + np.sqrt(phi(z)/6.)
+def As(d,z,Ae):
+    As = Ae(z) + np.sqrt(phi(d,z,Ae)/6.)
     return As
 
-def ws(z,Ae):
-    ws = np.exp(As(z))/z
+def ws(d,z,Ae):
+    ws = np.exp(As(d,z,Ae))/z
     return ws
