@@ -1,4 +1,5 @@
 import bg
+import numpy as np
 from scipy.misc import derivative
 
 def _partial_derivative(func,axis=0,point=[],n=1,dx=1e-8):
