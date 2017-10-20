@@ -51,3 +51,4 @@ def As(z,Ae):
 def ws(z,Ae):
     ws = np.exp(As(z))/z
     return ws
+def asd
