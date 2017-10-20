@@ -8,6 +8,10 @@ class integral_set:
         self.Ae = Ae
         self.tol = tol
         
+    def we(z,Ae): 
+        we = np.exp(Ae(z))/z
+        return we
+
     def I1(self,yi,yf):
         func = lambda y: we(y,self.Ae)**(2-self.d)/self.f(y) 
         I1, err = integrate.quad(func,yi,yf)
@@ -35,7 +39,15 @@ def blackening_factor(d,z,zh,mu,f,Ae,tol=1e-8):
             Iset.det(z,zh)/(Iset.I2(0,zh) * Iset.I1(0,zh)**2))
     return g
 
-def we(z,Ae): 
-    we = np.exp(Ae(z))/z
-    return we
-    
+def phi(z,Ae):
+    func = lambda y: 
+    phi,err = integrate. 
+    return phi
+
+def As(z,Ae):
+    As = Ae(z) + np.sqrt(phi(z)/6.)
+    return As
+
+def ws(z,Ae):
+    ws = np.exp(As(z))/z
+    return ws
