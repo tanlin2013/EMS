@@ -2,6 +2,8 @@ import EMS
 import numpy as np
 import matplotlib.pyplot as plt
 
+#class heavy_quark: 
+
 class light_quark:
     def __init__(self):
         self.a = 4.046
