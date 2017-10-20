@@ -22,7 +22,7 @@ class light_quark:
 if __name__=='__main__':    
     
     model = light_quark()
-    zs=np.linspace(0.,30.,80)
+    zs=np.linspace(0.01,30.,80)
     zh=10.0
     mu=1.0
     
