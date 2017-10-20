@@ -26,9 +26,10 @@ def sigma(model,z,zh,mu,tol=1e-8):
     sigma = bg.ws(model,z)**2 * np.sqrt(bg.blackening_factor(model,z,zh,mu,tol))
     return sigma
     
-def Vqq():
-    func = 2/(4*np.pi)*(ws^2*(1-sigma(zt)^2)/sigma(z)^2)^(-1/2))
-    Vqq, err = integrate.quad
+def Vqq(model,zh,zt,mu):
+    func = lambda y: 2/(4*np.pi) * bg.ws(model,y)**2 * (
+        1 - (sigma(model,zt,zh,mu)/sigma(model,y,zh,mu))**2)**(-0.5)
+    Vqq, err = integrate.quad(func,0,zt)
     return Vqq
 
 def rqq():
