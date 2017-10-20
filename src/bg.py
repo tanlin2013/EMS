@@ -48,15 +48,15 @@ def _d2Ae(z,Ae,dz=1e-8):
     d2Ae = derivative(Ae,z,dz,n=2)
     return d2Ae
     
-def phi(d,z,Ae):
-    func = lambda y: np.sqrt(-2*d * (_d2Ae(y,Ae) - _dAe(y,Ae)**2 + 2*_dAe(y,Ae)/y))
+def phi(model,z):
+    func = lambda y: np.sqrt(-2*model.d * (_d2Ae(y,model.Ae) - _dAe(y,model.Ae)**2 + 2*_dAe(y,model.Ae)/y))
     phi, err = integrate.quad(func,0,z) 
     return phi
 
-def As(d,z,Ae):
-    As = Ae(z) + np.sqrt(phi(d,z,Ae)/6.)
+def As(model,z):
+    As = model.Ae(z) + np.sqrt(phi(model,z)/6.)
     return As
 
-def ws(d,z,Ae):
-    ws = np.exp(As(d,z,Ae))/z
+def ws(model,z):
+    ws = np.exp(As(model,z))/z
     return ws
