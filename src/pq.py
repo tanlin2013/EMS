@@ -37,7 +37,10 @@ def rqq(model,zh,mu,zt,tol=1e-8):
     return rqq
     
 def S_TH(model,zh,mu,zt,tol=1e-8):
-    S_TH = -_partial_derivative(V_qq,axis=1,point=[model,zh,mu,zt,tol],dx=tol)/_partial_derivative(T_BH,axis=1,point=[model,zh,mu,tol],dx=tol) 
+    S_TH = -_partial_derivative(V_qq,axis=1,point=[model,zh,mu,zt,tol],dx=tol)/_partial_derivative(T_BH,axis=1,point=[model,z,zh,mu,tol],dx=tol)
+    #func = lambda y: ws(model,zt)**4/ws(model,z)**2 (1 - (sigma(model,zt,zh,mu,tol)/sigma(model,y,zh,mu,tol))**2)**(-1.5) 
+           #*_partial_derivative(bg.blackening_factor(model,zt,zh,mu,tol)/bg.blackening_factor(model,z,zh,mu,tol),axis=2,point=[model,y,mu,tol],dx=tol)
+    #S_TH, err = integrate.quad(func,0,zt) /_partial_derivative(bg.blackening_factor,axis=1,point=[model,zh,zh,mu,dz],dx=dz)
     return S_TH
 
 def F_EF():
