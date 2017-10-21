@@ -43,6 +43,6 @@ def S_TH(model,zh,mu,zt,tol=1e-8):
     #S_TH, err = integrate.quad(func,0,zt) /_partial_derivative(bg.blackening_factor,axis=1,point=[model,zh,zh,mu,dz],dx=dz)
     return S_TH
 
-def F_EF():
-    F_EF = 
+def F_EF(model,zh,ztmtol=1e-8):
+    F_EF = T_BH()*
     return F_EF
