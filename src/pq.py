@@ -18,7 +18,7 @@ def T_BH(model,zh,mu,dz=1e-8):
     return T_BH
 
 def F_BH(model,zh,mu,tol=1e-8):
-    func = lambda y: s_BH(model,y)*_partial_derivative(T_BH,axis=1,point=[model,y,mu,dzh],dx=tol)
+    func = lambda y: s_BH(model,y)*_partial_derivative(T_BH,axis=1,point=[model,y,mu,tol],dx=tol)
     F_BH, err = integrate.quad(func,zh,np.inf)
     return F_BH
 
