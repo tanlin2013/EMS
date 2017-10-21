@@ -51,7 +51,7 @@ def _d2Ae(Ae,z,dz=1e-8):
 
 def _dwe(Ae,z,dz=1e-8):
     dwe = pq._partial_derivative(we,axis=1,point=[Ae,z],dx=dz)
-    return dAe
+    return dwe
     
 def _d2we(Ae,z,dz=1e-8):
     d2we = pq._partial_derivative(we,axis=1,point=[Ae,z],n=2,dx=dz)
