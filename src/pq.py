@@ -26,20 +26,18 @@ def sigma(model,z,zh,mu,tol=1e-8):
     sigma = bg.ws(model,z)**2 * np.sqrt(bg.blackening_factor(model,z,zh,mu,tol))
     return sigma
     
-def Vqq(model,zh,zt,mu,tol=1e-8):
-    func = lambda y: 2/(4*np.pi) * bg.ws(model,y)**2 * (
-        1 - (sigma(model,zt,zh,mu,tol)/sigma(model,y,zh,mu,tol))**2)**(-0.5)
+def Vqq(model,zh,mu,zt,tol=1e-8):
+    func = lambda y: 2/(4*np.pi) * bg.ws(model,y)**2 * (1 - (sigma(model,zt,zh,mu,tol)/sigma(model,y,zh,mu,tol))**2)**(-0.5)
     Vqq, err = integrate.quad(func,0,zt)
     return Vqq
 
-def rqq(model,zh,zt,mu,tol=1e-8):
+def rqq(model,zh,mu,zt,tol=1e-8):
     func = lambda y: 2*(bg.blackening_factor(model,z,zh,mu,tol)*((sigma(model,y,zh,mu,tol)/sigma(model,zt,zh,mu,tol))**2-1))**(-0.5)
     rqq,err = integrate.quad(func,0,zt)
     return rqq
     
-def S_TH():
-    func = 
-    S_TH,err = integrate.quad
+def S_TH(model,zh,mu,zt,tol=1e-8):
+    S_TH = -_partial_derivative(V_qq,axis=1,point=[model,zh,mu,zt,tol],dx=tol)/_partial_derivative(T_BH,axis=1,point=[model,zh,mu,tol],dx=tol) 
     return S_TH
 
 def F_EF():
