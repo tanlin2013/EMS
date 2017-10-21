@@ -1,3 +1,4 @@
+import pq
 import numpy as np
 from scipy import integrate
 from scipy.misc import derivative
@@ -45,11 +46,20 @@ def _dAe(Ae,z,dz=1e-8):
     return dAe
     
 def _d2Ae(Ae,z,dz=1e-8):
-    d2Ae = derivative(Ae,z,dz,n=2)
+    d2Ae = derivative(we,z,dz,n=2)
     return d2Ae
+
+def _dwe(Ae,z,dz=1e-8):
+    dwe = pq._partial_derivative(we,axis=1,point[model,z,mu,tol],dx=tol)
+    return dAe
     
-def phi(model,z):
-    func = lambda y: np.sqrt(-2*model.d * (_d2Ae(model.Ae,y) - _dAe(model.Ae,y)**2 + 2*_dAe(model.Ae,y)/y))
+def _d2we(Ae,z,dz=1e-8):
+    d2Ae = pq._partial_derivative(we,axis=1,point[model,z,mu,tol],n=2,dx=tol)
+    return d2we
+    
+def phi(model,z,dz=1e-8):
+    func = lambda y: np.sqrt(-2*model.d * (_d2we(model.Ae,y,dz)/we(model.Ae,y) - 2*(_dwe(model.Ae,y,dz)/we(model.Ae,y))**2))
+    #func = lambda y: np.sqrt(-2*model.d * (_d2Ae(model.Ae,y,dz) - _dAe(model.Ae,y,dz)**2 + 2*_dAe(model.Ae,y,dz)/y))
     phi, err = integrate.quad(func,0,z) 
     return phi
 
