@@ -50,11 +50,11 @@ def _d2Ae(Ae,z,dz=1e-8):
     return d2Ae
 
 def _dwe(Ae,z,dz=1e-8):
-    dwe = pq._partial_derivative(we,axis=1,point=[model,z,mu,tol],dx=tol)
+    dwe = pq._partial_derivative(we,axis=1,point=[Ae,z,dz],dx=dz)
     return dAe
     
 def _d2we(Ae,z,dz=1e-8):
-    d2we = pq._partial_derivative(we,axis=1,point=[model,z,mu,tol],n=2,dx=tol)
+    d2we = pq._partial_derivative(we,axis=1,point=[Ae,z,dz],n=2,dx=dz)
     return d2we
     
 def phi(model,z,dz=1e-8):
