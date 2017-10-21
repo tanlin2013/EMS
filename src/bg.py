@@ -46,7 +46,7 @@ def _dAe(Ae,z,dz=1e-8):
     return dAe
     
 def _d2Ae(Ae,z,dz=1e-8):
-    d2Ae = derivative(we,z,dz,n=2)
+    d2Ae = derivative(Ae,z,dz,n=2)
     return d2Ae
 
 def _dwe(Ae,z,dz=1e-8):
