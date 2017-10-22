@@ -64,7 +64,7 @@ def phi(model,z,dz=1e-6,eps=1e-6):
     return phi
 
 def As(model,z,dz=1e-6,eps=1e-6):
-    As = model.Ae(z) + np.sqrt(phi(model,z,dz,eps)/6.)
+    As = model.Ae(z) + np.sqrt(1/6.)*phi(model,z,dz,eps)
     return As
 
 def ws(model,z,dz=1e-6,eps=1e-6):
