@@ -57,10 +57,10 @@ def _d2we(Ae,z,dz=1e-8):
     d2we = pq._partial_derivative(we,axis=1,point=[Ae,z],n=2,dx=dz)
     return d2we
     
-def phi(model,z,dz=1e-8):
+def phi(model,z,dz=1e-8,eps=1e-6):
     func = lambda y: np.sqrt(-2*model.d * (_d2we(model.Ae,y,dz)/we(model.Ae,y) - 2*(_dwe(model.Ae,y,dz)/we(model.Ae,y))**2))
     #func = lambda y: np.sqrt(-2*model.d * (_d2Ae(model.Ae,y,dz) - _dAe(model.Ae,y,dz)**2 + 2*_dAe(model.Ae,y,dz)/y))
-    phi, err = integrate.quad(func,0,z) 
+    phi, err = integrate.quad(func,eps,z) 
     return phi
 
 def As(model,z):
