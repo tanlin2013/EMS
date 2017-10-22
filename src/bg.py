@@ -63,10 +63,10 @@ def phi(model,z,dz=1e-6,eps=1e-6):
     phi, err = integrate.quad(func,eps,z) 
     return phi
 
-def As(model,z):
-    As = model.Ae(z) + np.sqrt(phi(model,z)/6.)
+def As(model,z,dz=1e-6,eps=1e-6):
+    As = model.Ae(z) + np.sqrt(phi(model,z,dz,eps)/6.)
     return As
 
-def ws(model,z):
-    ws = np.exp(As(model,z))/z
+def ws(model,z,dz=1e-6,eps=1e-6):
+    ws = np.exp(As(model,z,dz,eps))/z
     return ws
