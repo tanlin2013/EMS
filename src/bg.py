@@ -41,23 +41,23 @@ def we(Ae,z):
     we = np.exp(Ae(z))/z
     return we
 
-def _dAe(Ae,z,dz=1e-8):
+def _dAe(Ae,z,dz=1e-6):
     dAe = derivative(Ae,z,dz)
     return dAe
     
-def _d2Ae(Ae,z,dz=1e-8):
+def _d2Ae(Ae,z,dz=1e-6):
     d2Ae = derivative(Ae,z,dz,n=2)
     return d2Ae
 
-def _dwe(Ae,z,dz=1e-8):
+def _dwe(Ae,z,dz=1e-6):
     dwe = pq._partial_derivative(we,axis=1,point=[Ae,z],dx=dz)
     return dwe
     
-def _d2we(Ae,z,dz=1e-8):
+def _d2we(Ae,z,dz=1e-6):
     d2we = pq._partial_derivative(we,axis=1,point=[Ae,z],n=2,dx=dz)
     return d2we
     
-def phi(model,z,dz=1e-8,eps=1e-6):
+def phi(model,z,dz=1e-6,eps=1e-6):
     func = lambda y: np.sqrt(-2*model.d * (_d2we(model.Ae,y,dz)/we(model.Ae,y) - 2*(_dwe(model.Ae,y,dz)/we(model.Ae,y))**2))
     #func = lambda y: np.sqrt(-2*model.d * (_d2Ae(model.Ae,y,dz) - _dAe(model.Ae,y,dz)**2 + 2*_dAe(model.Ae,y,dz)/y))
     phi, err = integrate.quad(func,eps,z) 
