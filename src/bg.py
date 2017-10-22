@@ -11,17 +11,17 @@ class _integral_set:
         self.tol = tol
 
     def I1(self,yi,yf):
-        func = lambda y: we(y,self.Ae)**(2-self.d)/self.f(y) 
+        func = lambda y: we(self.Ae,y)**(2-self.d)/self.f(y) 
         I1, err = integrate.quad(func,yi,yf)
         return I1
         
     def I2(self,yi,yf):
-        func = lambda y: we(y,self.Ae)**(-self.d)
+        func = lambda y: we(self.Ae,y)**(-self.d)
         I2, err = integrate.quad(func,yi,yf)
         return I2
         
     def I12(self,x2i,x2f):
-        func = lambda x1, x2: we(x2,self.Ae)**(-self.d) * we(x1,self.Ae)**(2-self.d)/self.f(x1)
+        func = lambda x1, x2: we(self.Ae,x2)**(-self.d) * we(self.Ae,x1)**(2-self.d)/self.f(x1)
         I12, err = integrate.dblquad(func, x2i, x2f, lambda x1: 0, lambda x1: x1)
         return I12
     
