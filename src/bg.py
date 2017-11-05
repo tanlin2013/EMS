@@ -31,7 +31,7 @@ class _integral_set:
         det = np.linalg.det(mat)
         return det
     
-def blackening_factor(model,z,zh,mu,tol=1e-8):
+def g(model,z,zh,mu,tol=1e-8):
     Iset = _integral_set(model,tol)
     g = 1 - Iset.I2(0,z)/Iset.I2(0,zh) + mu**2 * (
             Iset.det(z,zh)/(Iset.I2(0,zh) * Iset.I1(0,zh)**2))
